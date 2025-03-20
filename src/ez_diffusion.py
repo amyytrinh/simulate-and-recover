@@ -1,3 +1,5 @@
+#Prompted ChatGPT to use equations from EZ Diffusion Model 
+
 import numpy as np
 
 class EZDiffusionModel:

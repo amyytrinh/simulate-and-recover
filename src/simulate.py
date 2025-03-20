@@ -1,3 +1,5 @@
+#Prompted ChatGPT to simulate model
+
 import numpy as np
 from ez_diffusion import EZDiffusionModel
 

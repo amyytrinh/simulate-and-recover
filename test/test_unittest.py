@@ -1,3 +1,5 @@
+#Prompted ChatGPT to provide examples of edge cases 
+
 import unittest
 import numpy as np
 from src.ez_diffusion import EZDiffusionModel
