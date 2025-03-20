@@ -106,5 +106,20 @@ class TestEZDiffusionModel(unittest.TestCase):
         self.assertIsInstance(M_obs, float)
         self.assertIsInstance(V_obs, float)
 
+    def test_zero_bias_when_obs_equals_pred(self):
+        """Test that bias is zero when (R_obs, M_obs, V_obs) = (R_pred, M_pred, V_pred)."""
+        # Generate a set of true parameters
+        true_a, true_v, true_t = 1.2, 0.8, 0.3
+        model = EZDiffusionModel(true_a, true_v, true_t)
+
+        R_pred, M_pred, V_pred = model.forward_equations()
+        R_obs, M_obs, V_obs = R_pred, M_pred, V_pred
+
+        recovered_params = EZDiffusionModel.inverse_equations(R_obs, M_obs, V_obs)
+        bias, _ = EZDiffusionModel.compute_metrics((true_a, true_v, true_t), recovered_params)
+
+        # Assert that bias is effectively zero for all parameters
+        np.testing.assert_almost_equal(bias, [0, 0, 0], decimal=6, err_msg="Bias should be zero when (R_obs, M_obs, V_obs) = (R_pred, M_pred, V_pred)")
+
 if __name__ == "__main__":
     unittest.main()
